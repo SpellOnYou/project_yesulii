@@ -1,0 +1,42 @@
+{% extends "base_generic.html" %}
+<!-- Add additional CSS in static file -->
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+
+{% block content %}
+  <h1>Local Concerts Home</h1>
+  <p>Welcome to LocalConcerts, a website developed by <em>Junhong</em>!</p>
+  <h2>Dynamic content</h2>
+  <p>The LocalConcert has the following record counts:</p>
+  <ul>
+    <li><strong>Concerts:</strong> {{ num_concerts }}</li>
+    <li><strong>Yedang:</strong> {{ num_yedang_available }}</li>
+    <li><strong>Lotte:</strong> {{ num_lotte_available }}</li>
+    <li><strong>Kumho:</strong> {{ num_kumho_available }}</li>
+    <li><strong>Sejong:</strong> {{ num_sejong_available }}</li>
+    <li><strong>TheHouseConcert:</strong> {{ num_thehouse_available }}</li>
+  </ul>
+
+  <!-- partial:index.partial.html -->
+  <div id="calendar"></div>
+  <!-- partial -->
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/moment-recur/1.0.5/moment-recur.min.js'></script>
+  <script src="{% static 'js/script.js' %}"></script>
+
+  <table class="table table-hover table-responsive"> <!-- hover, responsive -->
+    <thead>
+        <th>번호</th><th>제목</th></th><th>일자</th><th>시간</th><th>장소</th>
+    </thead>
+    <tbody>
+        {% for concert in concerts %}         <! -- for tag 시작 -->
+        <tr>
+            <td>{{ concert.id }}</td><td><a href={{ concert.link }}>{{ concert.title }}</a></td><td>{{ concert.date }}</td><td>{{ concert.time }}</td><td >{{ concert.place }}</td>
+        </tr>
+        {% endfor %}                          <! -- for tag 종료 -->
+    </tbody>
+  </table> 
+{% endblock %}
+
